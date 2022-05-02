@@ -1,6 +1,4 @@
-# read_csv.py
-
-# read csv 
+# This was originally a Jupyter Notebook
 
 import pandas as pd
 import numpy as np
@@ -107,7 +105,7 @@ def plotstft(binsize=2**10, plotpath=None, colormap="jet", srr = 22050, sam = No
 
     return ims
 
-csv_path = 'csv/1June_pattern_matching_ROIs_200601.csv'
+csv_path = 'csv/1June_pattern_matching_ROIs_200601.csv' # Local path to the CSV used to extract ROIs from Raw 1-Min S2L site level clips
 
 pd.read_csv(csv_path,index_col=None)
 
@@ -127,9 +125,7 @@ with open(csv_path,'rt')as f:
             sp_names.append(row[10])
             fir_app = row[10]
 
-#print(sp_names)
-
-# becasue there were duplicates!!
+# Remove Possible duplicates
 mylist = list(dict.fromkeys(sp_names))
 print(mylist)
 print(len(mylist))
@@ -165,7 +161,7 @@ indx = 0
 total_roi_w_cutoff = 0
 bird_name_lst = []
 cutoff_sp_name = []
-cutoff = 200# th nuo. or ROIs should at least be these many
+cutoff = 200 # There should be at least these many ROIS per species
 
 
 for i in range(len(roi_list)):
@@ -199,21 +195,18 @@ def pad_rois_w_noise(sr = 22050, target_time = 2.00, roi_npy_path = None):
             print("Done with, ",i)
 
         no_segments = (np.shape(jl[i][0])[0])/(target_time * sr)
-        #print("No. of Segments: ",no_segments)
-        #print("Shape of the X:", np.shape(jl[i][0]))
+        
 
         if (no_segments >= 1):
             roi_noise_pad.append(jl[i][0])
 
         else:
-            x, sr = librosa.load(jl[i][1], sr= sr) # librosa loading whole one min clip is a killer
+            x, sr = librosa.load(jl[i][1], sr= sr) 
 
             _5_sec_sam = int(sr*target_time) # the roi should not start before this
             _60_sec_sam = sr*60
             last_5_sec = _60_sec_sam - _5_sec_sam # the roi should not FINISH after this
 
-            #print("Len of samples:",len(jl[i][0]))
-            #print("Diff between samples:",(jl[i][3]) - jl[i][2])
 
             if(jl[i][2] > _5_sec_sam and jl[i][3] < last_5_sec):  # regular scenario
                 len_roi = len(jl[i][0][:int(sr*target_time)-1])
@@ -240,7 +233,7 @@ def pad_rois_w_noise(sr = 22050, target_time = 2.00, roi_npy_path = None):
 
 # CHAIN AND CONVERT TO WAVs
 
-wav_dir = '/media/third/2020/June_1/wav_6June/'
+wav_dir = '/media/third/2020/June_1/wav_6June/' # Local path where the MegaWavs are stored
 
 for i in range(len(cutoff_sp_name)):
     print('>>>',cutoff_sp_name[i],'<<<')
