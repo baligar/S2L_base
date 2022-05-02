@@ -1,8 +1,7 @@
-# Generate augmented samples
+# Generate augmented samples to increase the training data and make models more robust
 
 import os
 import matplotlib
-matplotlib.use('Agg') # No pictures displayed 
 import pylab
 import librosa
 import librosa.display
@@ -14,8 +13,8 @@ import cv2
 
 %matplotlib inline
 
-mel_spec_dir = '/media/third/2020/mel_meth/birds_37/2_sec_work/raw_mel_specs/tr/'
-pkl_dir = '/media/third/2020/mel_meth/birds_37/2_sec_work/raw_pkl/tr/'
+mel_spec_dir = '/media/third/2020/mel_meth/birds_37/2_sec_work/raw_mel_specs/tr/' # The augmented mel-specs will be saved here along with the unaugmented melspecs
+pkl_dir = '/media/third/2020/mel_meth/birds_37/2_sec_work/raw_pkl/tr/' 
 
 print('No of folders here, in mel_spec_dir:',os.listdir(mel_spec_dir))
 
@@ -102,8 +101,3 @@ for wav_nm in (os.listdir(wav_dir)):
             
         print('Number of ROIs converted here:', cnt)
         print('-'*70)
-
-
-
-
-
