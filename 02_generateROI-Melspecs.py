@@ -1,6 +1,9 @@
+# This code was originally a Jupyter Notebook
+
+# Task: Convert Megawavs to ROI Melspecs
+
 import os
 import matplotlib
-matplotlib.use('Agg') # No pictures displayed 
 import pylab
 import librosa
 import librosa.display
@@ -12,14 +15,12 @@ import cv2
 
 %matplotlib inline
 
-mel_spec_dir = '/media/third/2020/mel_meth/birds_37/vanilla_mel/raw_mel_spec/tr/'
-pkl_dir = '/media/third/2020/mel_meth/birds_37/vanilla_mel/raw_pkl/tr/'
+mel_spec_dir = '/media/third/2020/mel_meth/birds_37/vanilla_mel/raw_mel_spec/tr/' # Store Mel-specs here
+pkl_dir = '/media/third/2020/mel_meth/birds_37/vanilla_mel/raw_pkl/tr/' 
 
 print('No of folders here, in mel_spec_dir:',os.listdir(mel_spec_dir), os.listdir(pkl_dir))
 cutoff_sp_name = joblib.load('handy_pkls/cutoff_sp_name.pkl')
 
-
-#print(cutoff_sp_name)
 
 for i in range(len(cutoff_sp_name)):
     #print(cutoff_sp_name[i][1])
@@ -84,7 +85,7 @@ N_FFT = 1024+512  # Number of frequency bins for Fast Fourier Transform
 FMIN = 0 #250 # 1000
 SR = 22050
 
-wav_dir = '/media/third/2020/mel_meth/birds_37/split_wav_2000/'
+wav_dir = '/media/third/2020/mel_meth/birds_37/split_wav_2000/' # Megawavs are stored in this local dir
 
 n_sam = int(22050 * roi_len)  #21168
 
